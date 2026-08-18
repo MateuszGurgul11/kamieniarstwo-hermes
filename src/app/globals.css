@@ -1,26 +1,261 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   Hermes — system materiałowy
+
+   Paleta wzięta z materiału, nie z nastroju: chłodna szarość granitu
+   strzegomskiego jako tło, ciemny polerowany grafit na płyty, piaskowiec
+   na pasy przejściowe, mosiądz jako akcent (litery, krzyże i lampiony
+   na nagrobkach odlewa się właśnie z mosiądzu i brązu).
+   ------------------------------------------------------------------ */
+
+@theme {
+  --color-kamien: #e4e6e1;
+  --color-kamien-glab: #d5d8d2;
+  --color-kamien-cien: #bcc0b9;
+  --color-piasek: #c9c1b1;
+  --color-piasek-glab: #b3a993;
+  --color-grafit: #22262a;
+  --color-grafit-glab: #171a1d;
+  --color-grafit-lico: #3a4046;
+  --color-szron: #f2f4f1;
+  --color-mosiadz: #8f7a43;
+  --color-mosiadz-jasny: #bfa668;
+
+  --font-display: var(--font-spectral), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-source-sans), system-ui, sans-serif;
+  --font-utyl: var(--font-plex-mono), ui-monospace, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-kamien);
+  color: var(--color-grafit);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: var(--color-mosiadz);
+  color: var(--color-szron);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-mosiadz);
+  outline-offset: 3px;
+}
+
+/* ------------------------------------------------------------------
+   Litera cięta — nagłówki działowe.
+   Kreska pod nagłówkiem to ślad piły: cienka, twarda, na całą szerokość.
+   ------------------------------------------------------------------ */
+
+.naglowek-dzialu {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+.rzaz {
+  border-top: 1px solid color-mix(in srgb, var(--color-grafit) 22%, transparent);
+}
+
+.rzaz-jasny {
+  border-top: 1px solid color-mix(in srgb, var(--color-szron) 20%, transparent);
+}
+
+.etykieta {
+  font-family: var(--font-utyl);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* ------------------------------------------------------------------
+   Płyta polerowana — sygnatura strony.
+
+   Kamieniarstwo to jedna operacja: z surowego bloku wyprowadza się
+   jedną powierzchnię do lustra. Ciemne sekcje dostają to lustro —
+   pas światła przesuwający się po licu płyty. Reszta strony zostaje
+   matowa, żeby ten jeden gest był jedyny.
+   ------------------------------------------------------------------ */
+
+.plyta {
+  position: relative;
+  background-color: var(--color-grafit);
+  color: var(--color-szron);
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.plyta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image:
+    radial-gradient(
+      120% 80% at 15% 0%,
+      color-mix(in srgb, var(--color-grafit-lico) 70%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      90% 70% at 90% 100%,
+      color-mix(in srgb, var(--color-grafit-lico) 45%, transparent) 0%,
+      transparent 55%
+    );
+}
+
+/* ziarno kamienia — bardzo subtelne, żeby lico nie było płaskie */
+.plyta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='z'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23z)' opacity='0.14'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.polysk {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    104deg,
+    transparent 32%,
+    color-mix(in srgb, var(--color-szron) 7%, transparent) 46%,
+    color-mix(in srgb, var(--color-szron) 12%, transparent) 50%,
+    color-mix(in srgb, var(--color-szron) 7%, transparent) 54%,
+    transparent 68%
+  );
+  background-size: 260% 100%;
+  animation: przesuw-polysku 14s linear infinite;
+}
+
+@keyframes przesuw-polysku {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .polysk {
+    animation: none;
+    background-position: 40% 0;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Powierzchnie matowe
+   ------------------------------------------------------------------ */
+
+.lico-piasek {
+  background-color: var(--color-piasek);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-szron) 22%, transparent) 0%,
+    transparent 40%
+  );
+}
+
+.kafel {
+  background-color: color-mix(in srgb, var(--color-szron) 55%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-grafit) 12%, transparent);
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+
+@media (hover: hover) {
+  .kafel:hover {
+    background-color: color-mix(in srgb, var(--color-szron) 85%, transparent);
+    border-color: color-mix(in srgb, var(--color-mosiadz) 55%, transparent);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Slot na zdjęcie, którego jeszcze nie ma.
+   Ma wyglądać na świadomie pustą płytę, nie na zepsuty obrazek.
+   ------------------------------------------------------------------ */
+
+.slot-pusty {
+  background-color: var(--color-kamien-glab);
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0 11px,
+      color-mix(in srgb, var(--color-kamien-cien) 55%, transparent) 11px 12px
+    );
+  border: 1px solid color-mix(in srgb, var(--color-grafit) 16%, transparent);
+}
+
+/* ------------------------------------------------------------------
+   Odnośniki
+   ------------------------------------------------------------------ */
+
+.lacze-mosiadz {
+  color: var(--color-mosiadz);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+  transition: color 160ms ease;
+}
+
+@media (hover: hover) {
+  .lacze-mosiadz:hover {
+    color: color-mix(in srgb, var(--color-mosiadz) 75%, var(--color-grafit));
+  }
+}
+
+.lacze-nawigacji {
+  position: relative;
+  transition: color 160ms ease;
+}
+
+.lacze-nawigacji::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.375rem;
+  height: 1px;
+  background-color: var(--color-mosiadz);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+@media (hover: hover) {
+  .lacze-nawigacji:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lacze-nawigacji::after {
+    transition: none;
+  }
 }
