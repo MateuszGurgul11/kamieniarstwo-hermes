@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# kamieniarstwo-hermes.pl
 
-## Getting Started
+Strona wizytówka pracowni kamieniarskiej Hermes (Bogusław Krzyśko). Next.js 16
+(App Router, Turbopack) + Tailwind CSS 4. Jedna strona, w całości statyczna —
+bez bazy danych, API i logowania.
 
-First, run the development server:
+## Uruchomienie lokalne
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Strona: [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Pozostałe polecenia: `npm run build` (build produkcyjny), `npm run lint`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Gdzie się edytuje treść
 
-## Learn More
+Cała treść siedzi w jednym pliku: `src/content/site.ts`. Komponenty w
+`src/components/` tylko ją renderują — żeby zmienić tekst, cennik usług czy
+dane kontaktowe, nie trzeba dotykać JSX-a.
 
-To learn more about Next.js, take a look at the following resources:
+### Dane kontaktowe
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Pola w obiekcie `kontakt` mają dziś wartość `DO_UZUPELNIENIA` (czyli `null`).
+Nic nie jest zmyślone — każde puste pole renderuje w sekcji Kontakt widoczną
+plakietkę „DO UZUPEŁNIENIA", żeby braki rzucały się w oczy zamiast po cichu
+zniknąć. Po wpisaniu prawdziwych wartości plakietki znikają same, a dane trafią
+też do znacznika JSON-LD dla Google (`src/components/DaneStrukturalne.tsx`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Zdjęcia
 
-## Deploy on Vercel
+Pozycje w tablicy `realizacje` z `wizualizacja: true` to obrazy wygenerowane, a
+nie zdjęcia prac tego zakładu — dlatego sekcja nosi tytuł „Wizualizacje" i ma
+widoczny dopisek. Podmiana na prawdziwe zdjęcie: wgraj plik do
+`public/realizacje/`, ustaw `src` i przestaw `wizualizacja: false`. Nagłówek
+sekcji przełączy się sam. `src: null` renderuje opisany placeholder.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment (Vercel)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Projekt nie wymaga żadnych zmiennych środowiskowych, żeby się zbudować —
+`import` z GitHuba, preset Next.js, `Deploy`.
+
+### Zmienne środowiskowe
+
+| Zmienna | Wymagana | Do czego |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | nie (ale patrz niżej) | Adres docelowej domeny, bez ukośnika na końcu |
+
+Bez tej zmiennej adres kanoniczny, Open Graph i `sitemap.xml` biorą adres
+`*.vercel.app`, który Vercel podaje sam.
+
+**Ważne:** dopóki `NEXT_PUBLIC_SITE_URL` nie jest ustawiona, strona wysyła
+`noindex`, a `robots.txt` blokuje roboty. To celowe — tymczasowy adres
+`*.vercel.app` nie powinien trafić do Google i konkurować później z właściwą
+domeną o tę samą treść.
+
+### Po podpięciu domeny
+
+1. Vercel → Settings → Domains → dodaj `kamieniarstwo-hermes.pl`.
+2. Vercel → Settings → Environment Variables → `NEXT_PUBLIC_SITE_URL` =
+   `https://kamieniarstwo-hermes.pl`, środowisko **Production**.
+3. Redeploy. Od tego momentu strona jest indeksowana, a `sitemap.xml` i
+   `robots.txt` wskazują na właściwą domenę.
+4. Zgłoś `https://kamieniarstwo-hermes.pl/sitemap.xml` w Google Search Console.

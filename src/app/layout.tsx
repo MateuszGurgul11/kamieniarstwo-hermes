@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Spectral, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
+import { adresStrony, indeksowanie } from "@/lib/adres";
+import { firma } from "@/content/site";
+import { DaneStrukturalne } from "@/components/DaneStrukturalne";
 import "./globals.css";
 
 /* `latin-ext` jest konieczny — bez niego ą ę ś ć ż ź ł ń wypadają z kroju. */
@@ -25,10 +28,23 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+const tytul = "Hermes — pracownia kamieniarska Bogusława Krzyśki";
+const opis =
+  "Nagrobki na wymiar, renowacje, rozbiórki i składanie przy pogrzebie, ekshumacje. Kamień tniemy i obrabiamy sami. Od 1996 roku.";
+
+/** Miniatura pokazywana przy udostępnianiu linku (Facebook, Messenger, WhatsApp). */
+const podglad = {
+  url: "/og.jpg",
+  width: 1200,
+  height: 630,
+  alt: "Tarcza pilarki tnąca płytę granitową w warsztacie, chłodzenie wodą",
+};
+
 export const metadata: Metadata = {
-  title: "Hermes — pracownia kamieniarska Bogusława Krzyśki",
-  description:
-    "Nagrobki na wymiar, renowacje, rozbiórki i składanie przy pogrzebie, ekshumacje. Kamień tniemy i obrabiamy sami. Od 1996 roku.",
+  metadataBase: new URL(adresStrony),
+  title: tytul,
+  description: opis,
+  applicationName: firma.nazwa,
   keywords: [
     "kamieniarstwo",
     "nagrobki",
@@ -38,6 +54,26 @@ export const metadata: Metadata = {
     "parapety",
     "schody z kamienia",
   ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "pl_PL",
+    url: "/",
+    siteName: firma.nazwaPelna,
+    title: tytul,
+    description: opis,
+    images: [podglad],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: tytul,
+    description: opis,
+    images: [podglad],
+  },
+  robots: {
+    index: indeksowanie,
+    follow: indeksowanie,
+  },
 };
 
 export default function RootLayout({
@@ -49,6 +85,7 @@ export default function RootLayout({
         className={`${spectral.variable} ${sourceSans.variable} ${plexMono.variable} antialiased`}
       >
         {children}
+        <DaneStrukturalne />
       </body>
     </html>
   );
