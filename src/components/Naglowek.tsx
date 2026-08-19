@@ -2,7 +2,7 @@ import { firma, nawigacja } from "@/content/site";
 
 export function Naglowek() {
   return (
-    <header className="lico-marmur belka-naglowka sticky top-0 z-50 border-b border-grafit/12 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-grafit/12 bg-kamien/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
         <a
           href="#gora"

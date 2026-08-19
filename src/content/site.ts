@@ -29,24 +29,53 @@ export const kontakt = {
   nip: DO_UZUPELNIENIA as string | null,
 } as const;
 
+/**
+ * Trzy dziedziny zakładu. `lico` wskazuje ton, na jaki sekcja maluje płytę
+ * — od ciemnego grafitu przez piaskowy po jasny — żeby trzy rodzaje pracy
+ * dało się rozróżnić jednym spojrzeniem.
+ */
 export const zakresy = [
   {
     id: "kamieniarstwo",
+    numer: "I",
     nazwa: "Kamieniarstwo",
+    lico: "lico-plyta-ciemna",
     opis:
       "Nagrobki na wymiar — od projektu, przez cięcie i szlifowanie bloku, po montaż na cmentarzu.",
+    punkty: [
+      "Cięcie kamienia",
+      "Budowa nagrobków",
+      "Ustawianie na cmentarzu",
+      "Podnoszenie i renowacja",
+    ],
   },
   {
     id: "budowlanka",
+    numer: "II",
     nazwa: "Budowlanka",
+    lico: "lico-plyta-piasek",
     opis:
       "Kamień w budynku i wokół niego: schody, podesty, kostka, elementy z granitu układane na miejscu.",
+    punkty: [
+      "Schody i podesty",
+      "Kostka wokół nagrobków",
+      "Parapety i blaty",
+      "Montaż u klienta",
+    ],
   },
   {
     id: "pogrzebowe",
+    numer: "III",
     nazwa: "Usługi pogrzebowe",
+    lico: "lico-plyta-jasna",
     opis:
       "Rozbiórka i ponowne złożenie nagrobka przy pochówku. Ekshumacje.",
+    punkty: [
+      "Rozbiórka przed pogrzebem",
+      "Złożenie po ceremonii",
+      "Wyrównanie podbudowy",
+      "Ekshumacje",
+    ],
   },
 ] as const;
 

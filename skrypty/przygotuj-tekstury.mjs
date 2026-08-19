@@ -1,14 +1,12 @@
 /**
- * Tekstury kamienia dla teł strony.
+ * Tekstura kamienia dla ciemnych płyt — sekcji hero, „Co nas różni"
+ * i kontaktu. Jasne sekcje strony zostają gładkie, bez tekstury.
  *
- * Źródłem są prawdziwe zdjęcia z images/ — nie generatory szumu. Z każdego
- * wycinamy czysty fragment lica, odbarwiamy do skali szarości i spłaszczamy
- * kontrast wokół punktu neutralnego dla trybu mieszania, którym tekstura
- * będzie nakładana w CSS. Dzięki temu kafel sam z siebie nie zmienia koloru
- * powierzchni — dokłada wyłącznie ziarno.
- *
- *   multiply → neutralna biel (255): tekstura tylko przyciemnia
- *   overlay  → neutralna szarość (128): tekstura rozjaśnia i przyciemnia
+ * Źródłem jest prawdziwe zdjęcie z images/, nie generator szumu. Wycinamy
+ * czysty fragment lica, odbarwiamy do skali szarości i spłaszczamy kontrast
+ * wokół szarości neutralnej dla `overlay` (128), czyli trybu, którym CSS
+ * nakłada teksturę. Dzięki temu kafel sam z siebie nie zmienia koloru
+ * powierzchni — raz rozjaśnia, raz przyciemnia, dokładając samo ziarno.
  *
  * Wyrównanie światła (`wyrownanie`): zdjęcie niesie ze sobą oświetlenie
  * sceny — jaśniejszy brzeg płyty, cień od krawędzi. Przy kafelkowaniu ten
@@ -17,14 +15,10 @@
  * plamy jasności kasuje. Marmur go nie dostaje — tam użylenie w dużej
  * skali JEST treścią tekstury.
  *
- * Bezszwowość:
- *   „lustro4" — cztery odbicia 2×2. Działa dla ziarna izotropowego
- *               (granit, lastryko), gdzie odbicie jest niewidoczne.
- *   „lustroX" — odbicie tylko w poziomie, kafel powtarzany repeat-x.
- *               Dla marmuru z kierunkowym użyleniem, które przy odbiciu
- *               w obu osiach zwinęłoby się w romby jak tapeta. Poziome
- *               odbicie to za to „book-match" — układ dwóch płyt ciętych
- *               z jednego bloku, robiony w kamieniarstwie naprawdę.
+ * Bezszwowość: kafel składamy z czterech odbić lustrzanych 2×2. Działa
+ * dla ziarna izotropowego, gdzie odbicie jest niewidoczne. Tekstura
+ * kierunkowa (użylenie marmuru) zwinęłaby się przy tym w romby jak
+ * tapeta, więc takiej tu nie używamy.
  *
  * Uruchomienie: node skrypty/przygotuj-tekstury.mjs
  */
@@ -53,47 +47,13 @@ async function wyrownajSwiatlo(wejscie, sigma) {
 const TEKSTURY = [
   {
     plik: "IMG-20260817-WA0098.jpg",
-    nazwa: "granit",
-    wycinek: { left: 400, top: 1000, width: 400, height: 400 },
-    bok: 420,
-    uklad: "lustro4",
-    wyrownanie: 26,
-    srodek: 248,
-    kontrast: 0.23,
-    opis: "granit sól-pieprz — jasne tło strony (multiply)",
-  },
-  {
-    plik: "IMG-20260817-WA0098.jpg",
     nazwa: "granit-ciemny",
     wycinek: { left: 400, top: 1000, width: 400, height: 400 },
     bok: 420,
-    uklad: "lustro4",
-    wyrownanie: 26,
+    wyrownanie: 11,
     srodek: 128,
-    kontrast: 0.22,
-    opis: "to samo ziarno na ciemne płyty (overlay)",
-  },
-  {
-    plik: "IMG-20260817-WA0091.jpg",
-    nazwa: "lastryko",
-    wycinek: { left: 800, top: 800, width: 400, height: 400 },
-    bok: 400,
-    uklad: "lustro4",
-    wyrownanie: 20,
-    srodek: 247,
-    kontrast: 0.38,
-    opis: "posadzka lastrykowa — pasy przejściowe (multiply)",
-  },
-  {
-    plik: "IMG-20260817-WA0085.jpg",
-    nazwa: "marmur",
-    wycinek: { left: 430, top: 90, width: 420, height: 420 },
-    bok: 460,
-    uklad: "lustroX",
-    wyrownanie: null,
-    srodek: 246,
-    kontrast: 0.26,
-    opis: "Viscount White — belka nagłówka i stopka (multiply, repeat-x)",
+    kontrast: 0.30,
+    opis: "ziarno granitu na ciemne płyty (overlay)",
   },
 ];
 
@@ -115,33 +75,24 @@ for (const t of TEKSTURY) {
     .toBuffer();
 
   const bok = t.bok;
-  const wysokosc = t.uklad === "lustroX" ? bok : bok * 2;
-
-  const kafle =
-    t.uklad === "lustroX"
-      ? [
-          { input: cwiartka, top: 0, left: 0 },
-          { input: await sharp(cwiartka).flop().toBuffer(), top: 0, left: bok },
-        ]
-      : [
-          { input: cwiartka, top: 0, left: 0 },
-          { input: await sharp(cwiartka).flop().toBuffer(), top: 0, left: bok },
-          { input: await sharp(cwiartka).flip().toBuffer(), top: bok, left: 0 },
-          { input: await sharp(cwiartka).flip().flop().toBuffer(), top: bok, left: bok },
-        ];
 
   const wyjscie = `public/tekstury/${t.nazwa}.webp`;
   await sharp({
-    create: { width: bok * 2, height: wysokosc, channels: 3, background: "#fff" },
+    create: { width: bok * 2, height: bok * 2, channels: 3, background: "#fff" },
   })
-    .composite(kafle)
+    .composite([
+      { input: cwiartka, top: 0, left: 0 },
+      { input: await sharp(cwiartka).flop().toBuffer(), top: 0, left: bok },
+      { input: await sharp(cwiartka).flip().toBuffer(), top: bok, left: 0 },
+      { input: await sharp(cwiartka).flip().flop().toBuffer(), top: bok, left: bok },
+    ])
     .webp({ quality: 74, effort: 6 })
     .toFile(wyjscie);
 
   const st = await sharp(wyjscie).stats();
   const kb = Math.round(statSync(wyjscie).size / 1024);
   console.log(
-    `${t.nazwa.padEnd(14)} ${bok * 2}×${wysokosc}  ${String(kb).padStart(3)} KB  ` +
+    `${t.nazwa.padEnd(14)} ${bok * 2}×${bok * 2}  ${String(kb).padStart(3)} KB  ` +
       `ton ${Math.round(st.channels[0].min)}–${Math.round(st.channels[0].max)} ` +
       `(śr. ${Math.round(st.channels[0].mean)})  — ${t.opis}`,
   );

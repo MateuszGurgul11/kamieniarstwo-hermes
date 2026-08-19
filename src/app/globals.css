@@ -42,16 +42,8 @@ html {
   }
 }
 
-/*
-  Tło strony to lico granitu, nie płaska szarość.
-  Kafel jest odbarwiony i wyśrodkowany na bieli, więc w trybie `multiply`
-  nie zmienia koloru powierzchni — dokłada wyłącznie ziarno kamienia.
-*/
 body {
   background-color: var(--color-kamien);
-  background-image: url("/tekstury/granit.webp");
-  background-size: 560px;
-  background-blend-mode: multiply;
   color: var(--color-grafit);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -185,21 +177,13 @@ body {
    Powierzchnie matowe
    ------------------------------------------------------------------ */
 
-/*
-  Pasy przejściowe: posadzka lastrykowa. Kolejność warstw od góry:
-  kruszywo (multiply), potem światło spływające od górnej krawędzi.
-*/
 .lico-piasek {
   background-color: var(--color-piasek);
-  background-image:
-    url("/tekstury/lastryko.webp"),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--color-szron) 22%, transparent) 0%,
-      transparent 40%
-    );
-  background-size: 460px, auto;
-  background-blend-mode: multiply, normal;
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-szron) 22%, transparent) 0%,
+    transparent 40%
+  );
 }
 
 .kafel {
@@ -451,28 +435,173 @@ body {
 }
 
 /* ------------------------------------------------------------------
-   Marmur na krawędziach strony.
+   Sekcja „Czym się zajmujemy" — trzy płyty oparte obok siebie.
 
-   Użylenie Viscount White jest kierunkowe — odbite w obu osiach zwinęłoby
-   się w romby i wyglądało jak tapeta. Dlatego kafel jest odbity tylko
-   w poziomie (book-match, jak dwie płyty cięte z jednego bloku) i leży
-   wyłącznie w wąskich pasach: belce nagłówka i stopce. Tam widać jego
-   poziomy wycinek, nigdy pełnego powtórzenia.
+   Tło pasa jest jaśniejsze od reszty strony, żeby płyty miały o co się
+   oprzeć. Każda płyta dostaje własny ton i polerowany kant u dołu: pas
+   cienia zamknięty jasną linią czyta się jako grubość materiału, nie
+   jako obramowanie karty.
    ------------------------------------------------------------------ */
 
-.lico-marmur {
-  background-image: url("/tekstury/marmur.webp");
-  background-repeat: repeat-x;
-  background-size: 920px 460px;
-  background-blend-mode: multiply;
-}
-
-.belka-naglowka {
-  background-color: color-mix(in srgb, var(--color-kamien) 92%, transparent);
-  background-position: center 40%;
-}
-
-.stopka-kamienna {
+.pas-zakresu {
   background-color: var(--color-kamien-glab);
-  background-position: center 30%;
+  border-block: 1px solid color-mix(in srgb, var(--color-grafit) 14%, transparent);
+}
+
+.plyta-zakresu {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 2rem 1.75rem 2.75rem;
+  isolation: isolate;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, var(--color-szron) 45%, transparent) inset,
+    0 12px 28px -18px color-mix(in srgb, var(--color-grafit) 80%, transparent);
+  transition:
+    transform 320ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 320ms ease;
+}
+
+/* polerowany kant — grubość płyty przy dolnej krawędzi */
+.plyta-zakresu::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 0.85rem;
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-grafit) 22%, transparent) 0%,
+    color-mix(in srgb, var(--color-grafit) 8%, transparent) 100%
+  );
+  border-top: 1px solid color-mix(in srgb, var(--color-szron) 55%, transparent);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .plyta-zakresu:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 1px 0 color-mix(in srgb, var(--color-szron) 55%, transparent) inset,
+      0 22px 38px -20px color-mix(in srgb, var(--color-grafit) 85%, transparent);
+  }
+}
+
+/* --- lica --- */
+
+.lico-plyta-ciemna {
+  background-color: var(--color-grafit);
+  color: var(--color-szron);
+}
+
+.lico-plyta-piasek {
+  background-color: var(--color-piasek);
+  color: var(--color-grafit);
+}
+
+.lico-plyta-jasna {
+  background-color: var(--color-szron);
+  color: var(--color-grafit);
+}
+
+.lico-plyta-ciemna::after {
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-grafit-glab) 75%, transparent) 0%,
+    color-mix(in srgb, var(--color-grafit-glab) 35%, transparent) 100%
+  );
+  border-top-color: color-mix(in srgb, var(--color-mosiadz-jasny) 40%, transparent);
+}
+
+/* --- typografia płyty --- */
+
+.numer-plyty {
+  font-family: var(--font-utyl);
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  color: var(--color-mosiadz);
+}
+
+.lico-plyta-ciemna .numer-plyty {
+  color: var(--color-mosiadz-jasny);
+}
+
+/* kreska rośnie przy najechaniu — jak rysa znacznika przed cięciem */
+.kreska-mosiadzu {
+  height: 1px;
+  flex: 1;
+  transform-origin: left;
+  transform: scaleX(0.34);
+  background-color: color-mix(in srgb, var(--color-mosiadz) 70%, transparent);
+  transition: transform 480ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .plyta-zakresu:hover .kreska-mosiadzu {
+    transform: scaleX(1);
+  }
+}
+
+.tresc-plyty {
+  color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+/* `margin-top: auto` dosuwa listę do dołu płyty — dzięki temu wszystkie
+   trzy kończą się na tej samej wysokości mimo różnej długości opisu. */
+.lista-plyty {
+  margin-top: auto;
+  padding-top: 1.75rem;
+  font-family: var(--font-utyl);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+}
+
+.lista-plyty li {
+  padding-block: 0.55rem;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+  color: color-mix(in srgb, currentColor 70%, transparent);
+}
+
+.lista-plyty li:last-child {
+  border-bottom: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+/* ------------------------------------------------------------------
+   Znak powiększenia na miniaturze galerii — mosiężny krzyżyk w rogu,
+   wchodzi dopiero pod kursorem, żeby nie zaśmiecać spokojnej siatki.
+   ------------------------------------------------------------------ */
+
+.znak-powiekszenia {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-family: var(--font-utyl);
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-grafit-glab);
+  background-color: color-mix(in srgb, var(--color-mosiadz-jasny) 92%, transparent);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 260ms ease,
+    transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .kadr-zdjecia:hover .znak-powiekszenia,
+  .kadr-zdjecia:focus-visible .znak-powiekszenia {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .znak-powiekszenia {
+    transition: none;
+  }
 }

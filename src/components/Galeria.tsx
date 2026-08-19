@@ -18,6 +18,11 @@ type Praca = {
 /**
  * Galeria realizacji z podglądem na całym ekranie.
  *
+ * Wszystkie miniatury mają jeden format (4:5) niezależnie od tego, czy
+ * zdjęcie źródłowe jest pionowe, czy poziome — siatka ma stać równo jak
+ * rząd płyt opartych o ścianę. Kadr przycina `object-cover`, a pełną
+ * proporcję widać po powiększeniu.
+ *
  * Miniatury są przyciskami; podgląd to natywny <dialog> — przeglądarka
  * sama pilnuje fokusa i zamykania klawiszem Esc. Strzałki przełączają prace.
  */
@@ -57,18 +62,14 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
 
   return (
     <>
-      <div className="mt-12 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
         {prace.map((praca, indeks) => (
           <Odslon key={praca.id} opoznienie={(indeks % 3) * 90}>
             <figure className="flex flex-col">
               <button
                 type="button"
                 onClick={() => otworz(indeks)}
-                className="kadr-zdjecia group relative block w-full cursor-zoom-in"
-                style={{
-                  aspectRatio:
-                    praca.width >= praca.height ? "4 / 3" : "3 / 4",
-                }}
+                className="kadr-zdjecia group relative block aspect-[4/5] w-full cursor-zoom-in"
                 aria-label={`Powiększ: ${praca.podpis}, ${praca.detal}`}
               >
                 <Image
@@ -80,6 +81,9 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
                   blurDataURL={praca.blurDataURL}
                   className="zdjecie-lupa object-cover"
                 />
+                <span className="znak-powiekszenia" aria-hidden="true">
+                  +
+                </span>
               </button>
               <figcaption className="rzaz mt-3 flex items-baseline justify-between gap-3 pt-2">
                 <span className="font-display text-base text-grafit">
