@@ -22,7 +22,7 @@
   --color-mosiadz: #8f7a43;
   --color-mosiadz-jasny: #bfa668;
 
-  --font-display: var(--font-spectral), Georgia, "Times New Roman", serif;
+  --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --font-body: var(--font-source-sans), system-ui, sans-serif;
   --font-utyl: var(--font-plex-mono), ui-monospace, monospace;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Spectral, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
+import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
 import { adresStrony, indeksowanie } from "@/lib/adres";
 import { firma } from "@/content/site";
 import { DaneStrukturalne } from "@/components/DaneStrukturalne";
@@ -7,10 +7,10 @@ import "./globals.css";
 
 /* `latin-ext` jest konieczny — bez niego ą ę ś ć ż ź ł ń wypadają z kroju. */
 
-const spectral = Spectral({
-  variable: "--font-spectral",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
   display: "swap",
 });
 
@@ -80,10 +80,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pl">
-      <body
-        className={`${spectral.variable} ${sourceSans.variable} ${plexMono.variable} antialiased`}
-      >
+    <html
+      lang="pl"
+      /*
+        Zmienne krojów muszą stać na <html>, nie na <body>: Tailwind deklaruje
+        --font-display na :root, a jego wartość podstawia var(--font-newsreader).
+        Gdyby ta zmienna była dopiero na <body>, podstawienie na :root nie miałoby
+        czego wstawić, --font-display stałby się nieprawidłowy i zszedłby w dół
+        jako pusty — nagłówki spadłyby na systemowy krój bezszeryfowy.
+      */
+      className={`${newsreader.variable} ${sourceSans.variable} ${plexMono.variable}`}
+    >
+      <body className="antialiased">
         {/*
           Bez JavaScriptu animacje odsłonięcia nie mogą trzymać treści
           w ukryciu — ten arkusz przywraca wszystko do widoczności.
