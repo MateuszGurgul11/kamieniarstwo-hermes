@@ -7,8 +7,11 @@ type Props = {
   podpis?: string;
   detal?: string;
   className?: string;
-  priority?: boolean;
+  /** Zdjęcie nad zgięciem — ładowane od razu (dawne `priority`). */
+  preload?: boolean;
   sizes?: string;
+  /** Rozmyta miniatura pokazywana do czasu wczytania pliku. */
+  blurDataURL?: string;
   /** Wariant na ciemnej płycie — placeholder dostaje jaśniejsze lico. */
   naPlycie?: boolean;
 };
@@ -26,21 +29,24 @@ export function SlotZdjecia({
   podpis,
   detal,
   className = "",
-  priority = false,
+  preload = false,
   sizes = "(min-width: 1024px) 33vw, 100vw",
+  blurDataURL,
   naPlycie = false,
 }: Props) {
   return (
     <figure className={`flex flex-col ${className}`}>
-      <div className="relative w-full flex-1 overflow-hidden">
+      <div className="kadr-zdjecia relative w-full flex-1">
         {src ? (
           <Image
             src={src}
             alt={alt}
             fill
             sizes={sizes}
-            priority={priority}
-            className="object-cover"
+            preload={preload}
+            placeholder={blurDataURL ? "blur" : "empty"}
+            blurDataURL={blurDataURL}
+            className="zdjecie-lupa object-cover"
           />
         ) : (
           <div

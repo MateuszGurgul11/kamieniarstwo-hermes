@@ -1,17 +1,13 @@
-import { naZamowienie, realizacje } from "@/content/site";
+import { naZamowienie, naZamowienieZdjecia } from "@/content/site";
 import { SlotZdjecia } from "@/components/SlotZdjecia";
-
-/** Zdjęcia niecmentarne — blat i schody — pokazujemy przy tej sekcji. */
-const zdjecia = realizacje.filter((pozycja) =>
-  ["blat-kuchenny", "schody"].includes(pozycja.id),
-);
+import { Odslon } from "@/components/Odslon";
 
 export function NaZamowienie() {
   return (
     <section id="zamowienie">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <div>
+          <Odslon>
             <p className="etykieta text-grafit/45">Poza cmentarzem</p>
             <h2 className="naglowek-dzialu mt-4 text-4xl text-grafit sm:text-5xl">
               Kamień do domu
@@ -34,19 +30,21 @@ export function NaZamowienie() {
                 </li>
               ))}
             </ul>
-          </div>
+          </Odslon>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 lg:gap-8">
-            {zdjecia.map((pozycja) => (
-              <SlotZdjecia
-                key={pozycja.id}
-                src={pozycja.src}
-                alt={pozycja.alt}
-                podpis={pozycja.podpis}
-                detal={pozycja.detal}
-                sizes="(min-width: 1024px) 45vw, 100vw"
-                className="min-h-[16rem]"
-              />
+            {naZamowienieZdjecia.map((pozycja, indeks) => (
+              <Odslon key={pozycja.id} opoznienie={120 + indeks * 130}>
+                <SlotZdjecia
+                  src={pozycja.src}
+                  alt={pozycja.alt}
+                  podpis={pozycja.podpis}
+                  detal={pozycja.detal}
+                  blurDataURL={pozycja.blurDataURL}
+                  sizes="(min-width: 1024px) 45vw, 100vw"
+                  className="aspect-[4/3]"
+                />
+              </Odslon>
             ))}
           </div>
         </div>

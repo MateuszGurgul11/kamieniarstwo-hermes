@@ -5,6 +5,8 @@
  * Nie zostały zmyślone — trzeba wpisać prawdziwe dane przed publikacją.
  */
 
+import { zdjecia } from "@/content/zdjecia.gen";
+
 export const DO_UZUPELNIENIA = null;
 
 export const firma = {
@@ -38,7 +40,7 @@ export const zakresy = [
     id: "budowlanka",
     nazwa: "Budowlanka",
     opis:
-      "Kamień w budynku i wokół niego: kostka, opaski, elementy z granitu układane na miejscu.",
+      "Kamień w budynku i wokół niego: schody, podesty, kostka, elementy z granitu układane na miejscu.",
   },
   {
     id: "pogrzebowe",
@@ -127,89 +129,108 @@ export const naZamowienie = [
   },
 ] as const;
 
-/**
- * Zdjęcia otwierające sekcje.
- * Obie pozycje to wizualizacje wygenerowane (Kling 3 Omni, sierpień 2026).
- */
+/** Zdjęcia otwierające sekcje — prawdziwe kadry z warsztatu i cmentarzy. */
 export const zdjeciaSekcji = {
   hero: {
-    src: "/realizacje/blok-polerowany.png",
-    alt: "Blok granitu z jedną ścianą wypolerowaną do lustra",
-    podpis: "Blok i lustro",
-    detal: "wizualizacja",
+    ...zdjecia["nagrobek-jasny-ukos"],
+    podpis: "Po montażu",
+    detal: "granit polerowany",
   },
   rzemioslo: {
-    src: "/realizacje/warsztat-ciecie.png",
-    alt: "Tarcza pilarki tnąca płytę granitową, chłodzenie wodą",
-    podpis: "Cięcie płyty",
-    detal: "wizualizacja",
+    ...zdjecia["ksiega-granit"],
+    podpis: "Księga z granitu",
+    detal: "praca ręczna",
+  },
+  rzemiosloDetal: {
+    ...zdjecia["plyty-profilowane"],
+    podpis: "Profil krawędzi",
+    detal: "obróbka własna",
+  },
+  material: {
+    ...zdjecia["plyta-viscount"],
+    podpis: "Viscount White",
+    detal: "surowa płyta w warsztacie",
   },
 } as const;
 
-/**
- * Galeria.
- *
- * UWAGA — stan na dziś: pozycje z `wizualizacja: true` to obrazy
- * wygenerowane, a nie zdjęcia prac wykonanych przez ten zakład.
- * Dlatego sekcja nosi tytuł „Wizualizacje", a nie „Realizacje",
- * i ma widoczny dopisek pod nagłówkiem. Podmiana na prawdziwe zdjęcia:
- * wgraj plik do /public/realizacje/, podmień `src` i ustaw
- * `wizualizacja: false` — nagłówek i dopisek przełączą się same.
- *
- * `src: null` renderuje widoczny placeholder z opisem, czego brakuje.
- */
+/** Galeria — fotografie prac wykonanych przez zakład. */
 export const realizacje = [
   {
-    id: "nagrobek-pojedynczy",
-    src: "/realizacje/nagrobek-pojedynczy.png" as string | null,
-    wizualizacja: true,
-    alt: "Nagrobek pojedynczy z ciemnego granitu, front polerowany, boki łupane",
-    podpis: "Nagrobek pojedynczy",
-    detal: "granit, front polerowany",
-    format: "pion" as const,
-  },
-  {
-    id: "nagrobek-podwojny",
-    src: "/realizacje/nagrobek-podwojny.png" as string | null,
-    wizualizacja: true,
-    alt: "Nagrobek podwójny z obramowaniem i płytami wokół",
+    id: "nagrobek-podwojny-krzyz",
+    ...zdjecia["nagrobek-podwojny-krzyz"],
     podpis: "Nagrobek podwójny",
-    detal: "z obrysem i kostką",
-    format: "poziom" as const,
+    detal: "ciemny granit, krzyż",
   },
   {
-    id: "renowacja",
-    src: null as string | null,
-    wizualizacja: false,
-    alt: "Nagrobek przed renowacją i po renowacji",
-    podpis: "Renowacja",
-    detal: "przed / po",
-    format: "pion" as const,
+    id: "nagrobek-czarny-mosiadz",
+    ...zdjecia["nagrobek-czarny-mosiadz"],
+    podpis: "Czarny granit",
+    detal: "mosiężne liternictwo",
   },
   {
-    id: "blat-kuchenny",
-    src: null as string | null,
-    wizualizacja: false,
-    alt: "Blat kuchenny z kamienia z wycięciem pod zlew",
-    podpis: "Blat kuchenny",
-    detal: "na zamówienie",
-    format: "poziom" as const,
+    id: "nagrobek-jasny-tablica",
+    ...zdjecia["nagrobek-jasny-tablica"],
+    podpis: "Nagrobek pojedynczy",
+    detal: "jasny granit",
   },
   {
-    id: "schody",
-    src: null as string | null,
-    wizualizacja: false,
-    alt: "Schody z kamienia — stopnice i podstopnice",
+    id: "tablica-czerwony-granit",
+    ...zdjecia["tablica-czerwony-granit"],
+    podpis: "Tablica",
+    detal: "czerwony granit",
+  },
+  {
+    id: "nagrobek-kostka",
+    ...zdjecia["nagrobek-kostka"],
+    podpis: "Z kostką wokół",
+    detal: "obrys i dojście",
+  },
+  {
+    id: "nagrobek-granatowy",
+    ...zdjecia["nagrobek-granatowy"],
+    podpis: "Granit grafitowy",
+    detal: "płyta pełna",
+  },
+  {
+    id: "nagrobek-rzezbiony",
+    ...zdjecia["nagrobek-rzezbiony"],
+    podpis: "Forma rzeźbiona",
+    detal: "czarny granit",
+  },
+  {
+    id: "nagrobek-czarny-fala",
+    ...zdjecia["nagrobek-czarny-fala"],
+    podpis: "Projekt indywidualny",
+    detal: "wstęga z czerwonego granitu",
+  },
+  {
+    id: "nagrobek-jasny-wneka",
+    ...zdjecia["nagrobek-jasny-wneka"],
+    podpis: "Nagrobek z wnęką",
+    detal: "miejsce na lampiony",
+  },
+] as const;
+
+/** Zdjęcia przy sekcji „Na zamówienie" — kamień poza cmentarzem. */
+export const naZamowienieZdjecia = [
+  {
+    id: "schody-czerwony-granit",
+    ...zdjecia["schody-czerwony-granit"],
     podpis: "Schody",
-    detal: "na zamówienie",
-    format: "pion" as const,
+    detal: "czerwony granit",
+  },
+  {
+    id: "podest-granit",
+    ...zdjecia["podest-granit"],
+    podpis: "Podest wejściowy",
+    detal: "granit płomieniowany",
   },
 ] as const;
 
 export const nawigacja = [
   { href: "#zakres", etykieta: "Zakres" },
   { href: "#uslugi", etykieta: "Usługi" },
-  { href: "#realizacje", etykieta: "Galeria" },
+  { href: "#realizacje", etykieta: "Realizacje" },
   { href: "#pogrzeb", etykieta: "Przy pogrzebie" },
   { href: "#zamowienie", etykieta: "Na zamówienie" },
   { href: "#kontakt", etykieta: "Kontakt" },

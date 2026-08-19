@@ -1,4 +1,5 @@
 import { firma, kontakt } from "@/content/site";
+import { Odslon } from "@/components/Odslon";
 
 /**
  * Brief nie zawierał żadnych danych kontaktowych.
@@ -52,7 +53,7 @@ export function Kontakt() {
     <section id="kontakt" className="plyta">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
         <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <div>
+          <Odslon>
             <p className="etykieta text-mosiadz-jasny">Kontakt</p>
             <h2 className="naglowek-dzialu mt-4 text-4xl text-szron sm:text-5xl">
               Porozmawiajmy o tym,
@@ -69,9 +70,9 @@ export function Kontakt() {
             <p className="mt-8 text-sm leading-relaxed text-szron/50">
               {firma.nazwaPelna}
             </p>
-          </div>
+          </Odslon>
 
-          <div className="space-y-7">
+          <Odslon opoznienie={140} className="space-y-7">
             <Pole
               etykieta="Telefon"
               wartosc={kontakt.telefon}
@@ -98,7 +99,7 @@ export function Kontakt() {
               wartosc={kontakt.godziny}
               opisBraku="Godziny otwarcia do uzupełnienia"
             />
-          </div>
+          </Odslon>
         </div>
       </div>
     </section>

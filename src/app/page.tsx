@@ -4,6 +4,7 @@ import { Hero } from "@/components/sekcje/Hero";
 import { Zakres } from "@/components/sekcje/Zakres";
 import { Uslugi } from "@/components/sekcje/Uslugi";
 import { Rzemioslo } from "@/components/sekcje/Rzemioslo";
+import { PasMaterialu } from "@/components/sekcje/PasMaterialu";
 import { Realizacje } from "@/components/sekcje/Realizacje";
 import { PrzyPogrzebie } from "@/components/sekcje/PrzyPogrzebie";
 import { NaZamowienie } from "@/components/sekcje/NaZamowienie";
@@ -26,6 +27,7 @@ export default function Strona() {
         <Zakres />
         <Uslugi />
         <Rzemioslo />
+        <PasMaterialu />
         <Realizacje />
         <PrzyPogrzebie />
         <NaZamowienie />

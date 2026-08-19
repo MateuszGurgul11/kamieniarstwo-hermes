@@ -42,8 +42,16 @@ html {
   }
 }
 
+/*
+  Tło strony to lico granitu, nie płaska szarość.
+  Kafel jest odbarwiony i wyśrodkowany na bieli, więc w trybie `multiply`
+  nie zmienia koloru powierzchni — dokłada wyłącznie ziarno kamienia.
+*/
 body {
   background-color: var(--color-kamien);
+  background-image: url("/tekstury/granit.webp");
+  background-size: 560px;
+  background-blend-mode: multiply;
   color: var(--color-grafit);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -123,14 +131,19 @@ body {
     );
 }
 
-/* ziarno kamienia — bardzo subtelne, żeby lico nie było płaskie */
+/*
+  Ziarno ciemnego lica — ten sam granit co na jasnym tle, tylko wyprowadzony
+  tonalnie wokół szarości neutralnej dla `overlay`, więc raz rozjaśnia, raz
+  przyciemnia. Stąd polerowana płyta ma głębię, a nie płaską czerń.
+*/
 .plyta::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
   opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='z'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23z)' opacity='0.14'/%3E%3C/svg%3E");
+  background-image: url("/tekstury/granit-ciemny.webp");
+  background-size: 620px;
   mix-blend-mode: overlay;
   pointer-events: none;
 }
@@ -172,13 +185,21 @@ body {
    Powierzchnie matowe
    ------------------------------------------------------------------ */
 
+/*
+  Pasy przejściowe: posadzka lastrykowa. Kolejność warstw od góry:
+  kruszywo (multiply), potem światło spływające od górnej krawędzi.
+*/
 .lico-piasek {
   background-color: var(--color-piasek);
-  background-image: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--color-szron) 22%, transparent) 0%,
-    transparent 40%
-  );
+  background-image:
+    url("/tekstury/lastryko.webp"),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--color-szron) 22%, transparent) 0%,
+      transparent 40%
+    );
+  background-size: 460px, auto;
+  background-blend-mode: multiply, normal;
 }
 
 .kafel {
@@ -258,4 +279,200 @@ body {
   .lacze-nawigacji::after {
     transition: none;
   }
+}
+
+/* ------------------------------------------------------------------
+   Ruch — trzy gesty, wszystkie z poszanowaniem prefers-reduced-motion.
+
+   1. Kaskada w hero: elementy wchodzą po sobie przy załadowaniu.
+   2. Odsłonięcie przy przewijaniu (klasa .odslon + IntersectionObserver);
+      warunkiem ukrycia jest `html.js` — bez skryptów nic nie znika.
+   3. Powolny dryf pasa materiału (scroll-driven, tylko gdzie wspierane).
+   ------------------------------------------------------------------ */
+
+@keyframes wejscie-z-dolu {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.kaskada > * {
+  animation: wejscie-z-dolu 750ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.kaskada > *:nth-child(1) { animation-delay: 60ms; }
+.kaskada > *:nth-child(2) { animation-delay: 170ms; }
+.kaskada > *:nth-child(3) { animation-delay: 290ms; }
+.kaskada > *:nth-child(4) { animation-delay: 410ms; }
+.kaskada > *:nth-child(5) { animation-delay: 530ms; }
+
+.hero-zdjecie {
+  animation: wejscie-z-dolu 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 350ms both;
+}
+
+.odslon {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 700ms ease var(--odslon-opoznienie, 0ms),
+    transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1) var(--odslon-opoznienie, 0ms);
+}
+
+.odslon-widoczny {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kaskada > *,
+  .hero-zdjecie {
+    animation: none;
+  }
+  .odslon {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Kadr zdjęcia — cienka rama i delikatne przybliżenie pod kursorem.
+   Ruch robi transform na <img>, nie na ramie, więc układ stoi w miejscu.
+   ------------------------------------------------------------------ */
+
+.kadr-zdjecia {
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-grafit) 14%, transparent);
+}
+
+.zdjecie-lupa {
+  transition: transform 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .kadr-zdjecia:hover .zdjecie-lupa,
+  button.kadr-zdjecia:focus-visible .zdjecie-lupa {
+    transform: scale(1.035);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Pas materiału — kadr wyższy niż wstęga dryfuje pionowo w rytmie
+   przewijania. Tam, gdzie scroll-driven animations nie działają,
+   zostaje zwykły statyczny kadr.
+   ------------------------------------------------------------------ */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .pas-materialu .pas-materialu-kadr {
+      animation: dryf-materialu linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes dryf-materialu {
+  from {
+    transform: translateY(-4%);
+  }
+  to {
+    transform: translateY(4%);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Podgląd pracy (galeria) — natywny <dialog> na całym ekranie.
+   ------------------------------------------------------------------ */
+
+.podglad-pracy {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: none;
+  padding: 0;
+  background: color-mix(in srgb, var(--color-grafit-glab) 96%, transparent);
+  color: var(--color-szron);
+}
+
+.podglad-pracy::backdrop {
+  background: color-mix(in srgb, var(--color-grafit-glab) 80%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.przycisk-podgladu {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-szron) 25%, transparent);
+  color: var(--color-szron);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    background-color 180ms ease;
+}
+
+@media (hover: hover) {
+  .przycisk-podgladu:hover {
+    border-color: var(--color-mosiadz);
+    color: var(--color-mosiadz-jasny);
+    background-color: color-mix(in srgb, var(--color-mosiadz) 12%, transparent);
+  }
+}
+
+@keyframes pojawienie-podgladu {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pojawienie {
+  animation: pojawienie-podgladu 320ms ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pojawienie {
+    animation: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Marmur na krawędziach strony.
+
+   Użylenie Viscount White jest kierunkowe — odbite w obu osiach zwinęłoby
+   się w romby i wyglądało jak tapeta. Dlatego kafel jest odbity tylko
+   w poziomie (book-match, jak dwie płyty cięte z jednego bloku) i leży
+   wyłącznie w wąskich pasach: belce nagłówka i stopce. Tam widać jego
+   poziomy wycinek, nigdy pełnego powtórzenia.
+   ------------------------------------------------------------------ */
+
+.lico-marmur {
+  background-image: url("/tekstury/marmur.webp");
+  background-repeat: repeat-x;
+  background-size: 920px 460px;
+  background-blend-mode: multiply;
+}
+
+.belka-naglowka {
+  background-color: color-mix(in srgb, var(--color-kamien) 92%, transparent);
+  background-position: center 40%;
+}
+
+.stopka-kamienna {
+  background-color: var(--color-kamien-glab);
+  background-position: center 30%;
 }

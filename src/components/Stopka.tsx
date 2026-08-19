@@ -2,7 +2,7 @@ import { firma, nawigacja } from "@/content/site";
 
 export function Stopka() {
   return (
-    <footer className="border-t border-grafit/15">
+    <footer className="lico-marmur stopka-kamienna border-t border-grafit/15">
       <div className="mx-auto max-w-6xl px-5 py-12 sm:px-8">
         <div className="flex flex-wrap items-start justify-between gap-8">
           <div>

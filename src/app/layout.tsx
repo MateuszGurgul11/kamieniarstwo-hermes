@@ -37,7 +37,7 @@ const podglad = {
   url: "/og.jpg",
   width: 1200,
   height: 630,
-  alt: "Tarcza pilarki tnąca płytę granitową w warsztacie, chłodzenie wodą",
+  alt: "Nagrobek podwójny z ciemnego granitu z krzyżem — praca zakładu Hermes",
 };
 
 export const metadata: Metadata = {
@@ -84,6 +84,13 @@ export default function RootLayout({
       <body
         className={`${spectral.variable} ${sourceSans.variable} ${plexMono.variable} antialiased`}
       >
+        {/*
+          Bez JavaScriptu animacje odsłonięcia nie mogą trzymać treści
+          w ukryciu — ten arkusz przywraca wszystko do widoczności.
+        */}
+        <noscript>
+          <style>{`.odslon { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
         {children}
         <DaneStrukturalne />
       </body>

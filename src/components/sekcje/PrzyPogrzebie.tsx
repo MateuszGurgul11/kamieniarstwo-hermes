@@ -1,4 +1,5 @@
 import { przyPogrzebie } from "@/content/site";
+import { Odslon } from "@/components/Odslon";
 
 /**
  * Jedyna sekcja z numeracją na całej stronie.
@@ -9,7 +10,7 @@ export function PrzyPogrzebie() {
   return (
     <section id="pogrzeb" className="lico-piasek">
       <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
-        <div className="max-w-2xl">
+        <Odslon className="max-w-2xl">
           <p className="etykieta text-grafit/45">Przy pogrzebie</p>
           <h2 className="naglowek-dzialu mt-4 text-4xl text-grafit sm:text-5xl">
             Gdy pochówek jest w istniejącym grobie
@@ -19,14 +20,15 @@ export function PrzyPogrzebie() {
             obie te rzeczy, więc rodzina nie musi szukać dwóch firm ani
             pilnować terminów.
           </p>
-        </div>
+        </Odslon>
 
         <ol className="mt-12 grid gap-px bg-grafit/15 sm:grid-cols-3">
           {przyPogrzebie.map((etap) => (
-            <li
-              key={etap.krok}
-              className="lico-piasek flex flex-col px-6 py-8 sm:px-7"
-            >
+            <li key={etap.krok} className="lico-piasek">
+              <Odslon
+                opoznienie={Number(etap.krok) * 110}
+                className="flex h-full flex-col px-6 py-8 sm:px-7"
+              >
               <span className="font-utyl text-sm text-mosiadz">
                 {etap.krok}
               </span>
@@ -36,6 +38,7 @@ export function PrzyPogrzebie() {
               <p className="mt-3 text-[0.95rem] leading-relaxed text-grafit/75">
                 {etap.opis}
               </p>
+              </Odslon>
             </li>
           ))}
         </ol>
