@@ -64,9 +64,9 @@ export const zakresy = [
     ],
   },
   {
-    id: "pogrzebowe",
+    id: "rozbiurkowe",
     numer: "III",
-    nazwa: "Usługi pogrzebowe",
+    nazwa: "Usługi rozbiórkowe",
     lico: "lico-plyta-jasna",
     opis:
       "Rozbiórka i ponowne złożenie nagrobka przy pochówku. Ekshumacje.",

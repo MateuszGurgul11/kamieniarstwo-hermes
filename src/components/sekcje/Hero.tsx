@@ -11,7 +11,7 @@ export function Hero() {
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-14">
           <div className="kaskada">
             <p className="etykieta text-mosiadz-jasny">
-              Pracownia kamieniarska · {firma.miesiacZalozenia} {firma.rokZalozenia}
+              Pracownia kamieniarska · działamy nieprzerwanie od {firma.rokZalozenia}
             </p>
 
             <h1 className="naglowek-dzialu mt-7 text-[2.6rem] leading-[1.03] text-szron sm:text-6xl lg:text-[4.2rem]">
@@ -30,13 +30,13 @@ export function Hero() {
             <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
               <a
                 href="#realizacje"
-                className="bg-mosiadz px-6 py-3 font-body text-[0.95rem] font-medium text-grafit-glab transition-colors hover:bg-mosiadz-jasny"
+                className="bg-mosiadz px-6 py-3 font-body text-base font-medium text-grafit-glab transition-colors hover:bg-mosiadz-jasny"
               >
                 Zobacz realizacje
               </a>
               <a
                 href="#kontakt"
-                className="border border-szron/25 px-6 py-3 font-body text-[0.95rem] text-szron transition-colors hover:border-mosiadz hover:text-mosiadz-jasny"
+                className="border border-szron/25 px-6 py-3 font-body text-base text-szron transition-colors hover:border-mosiadz hover:text-mosiadz-jasny"
               >
                 Napisz do nas
               </a>
@@ -50,7 +50,7 @@ export function Hero() {
               ].map(([klucz, wartosc]) => (
                 <div key={klucz}>
                   <dt className="etykieta text-szron/40">{klucz}</dt>
-                  <dd className="mt-1.5 text-sm leading-snug text-szron/80">
+                  <dd className="mt-1.5 text-base leading-snug text-szron/80">
                     {wartosc}
                   </dd>
                 </div>

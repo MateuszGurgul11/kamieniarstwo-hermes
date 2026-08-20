@@ -40,7 +40,7 @@ export function Zakres() {
                   {zakres.nazwa}
                 </h3>
 
-                <p className="tresc-plyty mt-4 text-[0.97rem] leading-relaxed">
+                <p className="tresc-plyty mt-4 text-base leading-relaxed">
                   {zakres.opis}
                 </p>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Newsreader, Source_Sans_3, IBM_Plex_Mono } from "next/font/google";
+import { Newsreader } from "next/font/google";
 import { adresStrony, indeksowanie } from "@/lib/adres";
 import { firma } from "@/content/site";
 import { DaneStrukturalne } from "@/components/DaneStrukturalne";
@@ -11,20 +11,6 @@ const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
-  display: "swap",
-});
-
-const sourceSans = Source_Sans_3({
-  variable: "--font-source-sans",
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
   display: "swap",
 });
 
@@ -83,13 +69,12 @@ export default function RootLayout({
     <html
       lang="pl"
       /*
-        Zmienne krojów muszą stać na <html>, nie na <body>: Tailwind deklaruje
-        --font-display na :root, a jego wartość podstawia var(--font-newsreader).
-        Gdyby ta zmienna była dopiero na <body>, podstawienie na :root nie miałoby
-        czego wstawić, --font-display stałby się nieprawidłowy i zszedłby w dół
-        jako pusty — nagłówki spadłyby na systemowy krój bezszeryfowy.
+        Zmienna kroju musi stać na <html>, nie na <body>: Tailwind deklaruje
+        --font-display / --font-body / --font-utyl na :root, a ich wartość
+        podstawia var(--font-newsreader). Gdyby ta zmienna była dopiero na
+        <body>, podstawienie na :root nie miałoby czego wstawić.
       */
-      className={`${newsreader.variable} ${sourceSans.variable} ${plexMono.variable}`}
+      className={newsreader.variable}
     >
       <body className="antialiased">
         {/*

@@ -23,8 +23,8 @@
   --color-mosiadz-jasny: #bfa668;
 
   --font-display: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --font-body: var(--font-source-sans), system-ui, sans-serif;
-  --font-utyl: var(--font-plex-mono), ui-monospace, monospace;
+  --font-body: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-utyl: var(--font-newsreader), Georgia, "Times New Roman", serif;
 }
 
 :root {
@@ -82,8 +82,8 @@ body {
 
 .etykieta {
   font-family: var(--font-utyl);
-  font-size: 0.6875rem;
-  letter-spacing: 0.16em;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   font-weight: 500;
 }
@@ -517,7 +517,7 @@ body {
 
 .numer-plyty {
   font-family: var(--font-utyl);
-  font-size: 0.8rem;
+  font-size: 1rem;
   letter-spacing: 0.22em;
   color: var(--color-mosiadz);
 }
@@ -552,7 +552,7 @@ body {
   margin-top: auto;
   padding-top: 1.75rem;
   font-family: var(--font-utyl);
-  font-size: 0.74rem;
+  font-size: 1rem;
   letter-spacing: 0.04em;
 }
 

@@ -7,8 +7,8 @@ export function Stopka() {
         <div className="flex flex-wrap items-start justify-between gap-8">
           <div>
             <p className="font-display text-xl text-grafit">{firma.nazwa}</p>
-            <p className="mt-2 max-w-xs text-sm leading-relaxed text-grafit/60">
-              {firma.nazwaPelna}. Kamieniarstwo, budowlanka i usługi pogrzebowe
+            <p className="mt-2 max-w-xs text-base leading-relaxed text-grafit/60">
+              {firma.nazwaPelna}. Kamieniarstwo, budowlanka i usługi rozbiórkowe
               od {firma.rokZalozenia} roku.
             </p>
           </div>
@@ -19,7 +19,7 @@ export function Stopka() {
                 <li key={pozycja.href}>
                   <a
                     href={pozycja.href}
-                    className="text-sm text-grafit/65 transition-colors hover:text-mosiadz"
+                    className="text-base text-grafit/65 transition-colors hover:text-mosiadz"
                   >
                     {pozycja.etykieta}
                   </a>
@@ -29,7 +29,7 @@ export function Stopka() {
           </nav>
         </div>
 
-        <p className="rzaz mt-10 pt-5 font-utyl text-[0.7rem] text-grafit/40">
+        <p className="rzaz mt-10 pt-5 font-utyl text-base text-grafit/40">
           © {new Date().getFullYear()} {firma.nazwaPelna}
         </p>
       </div>

@@ -55,7 +55,7 @@ export function SlotZdjecia({
             }`}
           >
             <span className="etykieta text-grafit/40">Miejsce na zdjęcie</span>
-            <span className="font-utyl text-[0.7rem] leading-snug text-grafit/55">
+            <span className="font-utyl text-base leading-snug text-grafit/55">
               {alt}
             </span>
           </div>
@@ -79,7 +79,7 @@ export function SlotZdjecia({
           )}
           {detal && (
             <span
-              className={`font-utyl text-[0.7rem] ${
+              className={`font-utyl text-base ${
                 naPlycie ? "text-szron/55" : "text-grafit/50"
               }`}
             >

@@ -26,10 +26,10 @@ export function Uslugi() {
               <h3 className="font-display text-xl leading-snug text-grafit">
                 {usluga.nazwa}
               </h3>
-              <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-grafit/70">
+              <p className="mt-3 flex-1 text-base leading-relaxed text-grafit/70">
                 {usluga.opis}
               </p>
-              <p className="rzaz mt-5 pt-3 font-utyl text-[0.7rem] text-grafit/45">
+              <p className="rzaz mt-5 pt-3 font-utyl text-base text-grafit/45">
                 {usluga.material}
               </p>
             </Odslon>

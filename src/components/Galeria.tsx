@@ -89,7 +89,7 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
                 <span className="font-display text-base text-grafit">
                   {praca.podpis}
                 </span>
-                <span className="font-utyl text-[0.7rem] text-grafit/50">
+                <span className="font-utyl text-base text-grafit/50">
                   {praca.detal}
                 </span>
               </figcaption>
@@ -126,7 +126,7 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
                 <span className="font-display text-lg text-szron">
                   {biezaca.podpis}
                 </span>
-                <span className="ml-3 font-utyl text-xs text-szron/55">
+                <span className="ml-3 font-utyl text-base text-szron/55">
                   {biezaca.detal} · {otwarta! + 1} / {prace.length}
                 </span>
               </p>

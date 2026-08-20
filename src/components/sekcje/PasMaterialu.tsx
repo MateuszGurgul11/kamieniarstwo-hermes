@@ -28,7 +28,7 @@ export function PasMaterialu() {
       <div className="relative mx-auto flex h-[38vh] min-h-[16rem] max-w-6xl items-end px-5 pb-6 sm:px-8">
         <p className="border-l-2 border-mosiadz-jasny bg-grafit-glab/70 px-4 py-2.5 backdrop-blur-sm">
           <span className="font-display text-lg text-szron">{material.podpis}</span>
-          <span className="ml-3 font-utyl text-xs tracking-wider text-szron/65 uppercase">
+          <span className="ml-3 font-utyl text-base tracking-wider text-szron/65 uppercase">
             {material.detal}
           </span>
         </p>

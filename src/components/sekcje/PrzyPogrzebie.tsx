@@ -29,13 +29,13 @@ export function PrzyPogrzebie() {
                 opoznienie={Number(etap.krok) * 110}
                 className="flex h-full flex-col px-6 py-8 sm:px-7"
               >
-              <span className="font-utyl text-sm text-mosiadz">
+              <span className="font-utyl text-base text-mosiadz">
                 {etap.krok}
               </span>
               <h3 className="naglowek-dzialu mt-4 text-2xl text-grafit">
                 {etap.nazwa}
               </h3>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-grafit/75">
+              <p className="mt-3 text-base leading-relaxed text-grafit/75">
                 {etap.opis}
               </p>
               </Odslon>
@@ -43,7 +43,7 @@ export function PrzyPogrzebie() {
           ))}
         </ol>
 
-        <p className="mt-10 max-w-2xl text-[0.95rem] leading-relaxed text-grafit/65">
+        <p className="mt-10 max-w-2xl text-base leading-relaxed text-grafit/65">
           Prowadzimy też ekshumacje — razem z rozbiórką i odtworzeniem
           nagrobka. W tej sprawie najlepiej zadzwonić; formalności i termin
           omawiamy indywidualnie.

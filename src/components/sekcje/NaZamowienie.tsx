@@ -24,7 +24,7 @@ export function NaZamowienie() {
                   <h3 className="font-display text-xl text-grafit">
                     {pozycja.nazwa}
                   </h3>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed text-grafit/70">
+                  <p className="mt-2 text-base leading-relaxed text-grafit/70">
                     {pozycja.opis}
                   </p>
                 </li>
