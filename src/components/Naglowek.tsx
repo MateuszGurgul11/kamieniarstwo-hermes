@@ -20,7 +20,7 @@ export function Naglowek() {
               <li key={pozycja.href}>
                 <a
                   href={pozycja.href}
-                  className="lacze-nawigacji text-base text-grafit/75 hover:text-grafit"
+                  className="lacze-nawigacji text-lg text-grafit/75 hover:text-grafit"
                 >
                   {pozycja.etykieta}
                 </a>

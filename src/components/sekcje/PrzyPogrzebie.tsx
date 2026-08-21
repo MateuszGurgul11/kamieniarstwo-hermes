@@ -35,7 +35,7 @@ export function PrzyPogrzebie() {
               <h3 className="naglowek-dzialu mt-4 text-2xl text-grafit">
                 {etap.nazwa}
               </h3>
-              <p className="mt-3 text-base leading-relaxed text-grafit/75">
+              <p className="mt-3 text-lg leading-relaxed text-grafit/75">
                 {etap.opis}
               </p>
               </Odslon>
@@ -43,7 +43,7 @@ export function PrzyPogrzebie() {
           ))}
         </ol>
 
-        <p className="mt-10 max-w-2xl text-base leading-relaxed text-grafit/65">
+        <p className="mt-10 max-w-2xl text-lg leading-relaxed text-grafit/65">
           Prowadzimy też ekshumacje — razem z rozbiórką i odtworzeniem
           nagrobka. W tej sprawie najlepiej zadzwonić; formalności i termin
           omawiamy indywidualnie.

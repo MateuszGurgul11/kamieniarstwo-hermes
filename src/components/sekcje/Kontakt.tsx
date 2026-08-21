@@ -37,8 +37,8 @@ function Pole({
           </p>
         )
       ) : (
-        <p className="mt-2 font-utyl text-base leading-snug text-szron/45">
-          <span className="mr-2 inline-block border border-mosiadz/50 px-1.5 py-0.5 text-base tracking-wider text-mosiadz-jasny">
+        <p className="mt-2 font-utyl text-lg leading-snug text-szron/45">
+          <span className="mr-2 inline-block border border-mosiadz/50 px-1.5 py-0.5 text-lg tracking-wider text-mosiadz-jasny">
             DO UZUPEŁNIENIA
           </span>
           <span className="mt-2 block">{opisBraku}</span>
@@ -67,7 +67,7 @@ export function Kontakt() {
               trzeba dopasować do ceremonii.
             </p>
 
-            <p className="mt-8 text-base leading-relaxed text-szron/50">
+            <p className="mt-8 text-lg leading-relaxed text-szron/50">
               {firma.nazwaPelna}
             </p>
           </Odslon>
@@ -86,7 +86,7 @@ export function Kontakt() {
               opisBraku="Adres e-mail do uzupełnienia"
             />
             <Pole
-              etykieta="Warsztat"
+              etykieta="Adres"
               wartosc={
                 kontakt.ulica && kontakt.miasto
                   ? `${kontakt.ulica}, ${kontakt.miasto}`

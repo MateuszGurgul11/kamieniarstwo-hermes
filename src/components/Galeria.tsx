@@ -86,10 +86,10 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
                 </span>
               </button>
               <figcaption className="rzaz mt-3 flex items-baseline justify-between gap-3 pt-2">
-                <span className="font-display text-base text-grafit">
+                <span className="font-display text-lg text-grafit">
                   {praca.podpis}
                 </span>
-                <span className="font-utyl text-base text-grafit/50">
+                <span className="font-utyl text-lg text-grafit/50">
                   {praca.detal}
                 </span>
               </figcaption>
@@ -126,7 +126,7 @@ export function Galeria({ prace }: { prace: readonly Praca[] }) {
                 <span className="font-display text-lg text-szron">
                   {biezaca.podpis}
                 </span>
-                <span className="ml-3 font-utyl text-base text-szron/55">
+                <span className="ml-3 font-utyl text-lg text-szron/55">
                   {biezaca.detal} · {otwarta! + 1} / {prace.length}
                 </span>
               </p>

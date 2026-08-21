@@ -18,13 +18,13 @@ export const firma = {
   lata: new Date().getFullYear() - 1996,
 } as const;
 
-/** Brief nie zawierał danych kontaktowych ani adresu. */
+/** Brief nie zawierał e-maila ani godzin otwarcia. */
 export const kontakt = {
-  telefon: DO_UZUPELNIENIA as string | null,
-  telefonHref: DO_UZUPELNIENIA as string | null,
+  telefon: "602 876 508",
+  telefonHref: "tel:+48602876508",
   email: DO_UZUPELNIENIA as string | null,
-  ulica: DO_UZUPELNIENIA as string | null,
-  miasto: DO_UZUPELNIENIA as string | null,
+  ulica: "Cmentarna 6",
+  miasto: "60-176 Poznań",
   godziny: DO_UZUPELNIENIA as string | null,
   nip: DO_UZUPELNIENIA as string | null,
 } as const;
@@ -163,7 +163,7 @@ export const zdjeciaSekcji = {
   hero: {
     ...zdjecia["nagrobek-jasny-ukos"],
     podpis: "Po montażu",
-    detal: "granit polerowany",
+    detal: "lastryko",
   },
   rzemioslo: {
     ...zdjecia["ksiega-granit"],
@@ -181,6 +181,46 @@ export const zdjeciaSekcji = {
     detal: "surowa płyta w warsztacie",
   },
 } as const;
+
+/** Detale ręcznej rzeźby — serca, zwoje, księgi wykute w warsztacie. */
+export const detaleReczne = [
+  {
+    id: "serce-rzezba",
+    ...zdjecia["serce-rzezba"],
+    podpis: "Serce",
+    detal: "rzeźba ręczna",
+  },
+  {
+    id: "serce-poler",
+    ...zdjecia["serce-poler"],
+    podpis: "Serce",
+    detal: "czarny granit",
+  },
+  {
+    id: "zwoj-krawedz",
+    ...zdjecia["zwoj-krawedz"],
+    podpis: "Zwój",
+    detal: "krawędź rzeźbiona",
+  },
+  {
+    id: "ksiega-karty",
+    ...zdjecia["ksiega-karty"],
+    podpis: "Księga",
+    detal: "karty wykute ręcznie",
+  },
+  {
+    id: "ksiega-grzbiet",
+    ...zdjecia["ksiega-grzbiet"],
+    podpis: "Księga",
+    detal: "grzbiet i karty",
+  },
+  {
+    id: "pergamin-zwoje",
+    ...zdjecia["pergamin-zwoje"],
+    podpis: "Pergamin",
+    detal: "zwoje na obu końcach",
+  },
+] as const;
 
 /** Galeria — fotografie prac wykonanych przez zakład. */
 export const realizacje = [
@@ -246,13 +286,13 @@ export const naZamowienieZdjecia = [
     id: "schody-czerwony-granit",
     ...zdjecia["schody-czerwony-granit"],
     podpis: "Schody",
-    detal: "czerwony granit",
+    detal: "marmur czerwony",
   },
   {
     id: "podest-granit",
     ...zdjecia["podest-granit"],
     podpis: "Podest wejściowy",
-    detal: "granit płomieniowany",
+    detal: "lastryko",
   },
 ] as const;
 

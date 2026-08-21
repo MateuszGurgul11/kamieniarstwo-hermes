@@ -30,13 +30,13 @@ export function Hero() {
             <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
               <a
                 href="#realizacje"
-                className="bg-mosiadz px-6 py-3 font-body text-base font-medium text-grafit-glab transition-colors hover:bg-mosiadz-jasny"
+                className="bg-mosiadz px-6 py-3 font-body text-lg font-medium text-grafit-glab transition-colors hover:bg-mosiadz-jasny"
               >
                 Zobacz realizacje
               </a>
               <a
                 href="#kontakt"
-                className="border border-szron/25 px-6 py-3 font-body text-base text-szron transition-colors hover:border-mosiadz hover:text-mosiadz-jasny"
+                className="border border-szron/25 px-6 py-3 font-body text-lg text-szron transition-colors hover:border-mosiadz hover:text-mosiadz-jasny"
               >
                 Napisz do nas
               </a>
@@ -46,11 +46,11 @@ export function Hero() {
               {[
                 ["Doświadczenie", `${firma.lata} lat przy kamieniu`],
                 ["Obróbka", "we własnym warsztacie"],
-                ["Materiał", "granit · piaskowiec · marmur"],
+                ["Materiał", "granit · piaskowiec · marmur · lastryko"],
               ].map(([klucz, wartosc]) => (
                 <div key={klucz}>
                   <dt className="etykieta text-szron/40">{klucz}</dt>
-                  <dd className="mt-1.5 text-base leading-snug text-szron/80">
+                  <dd className="mt-1.5 text-lg leading-snug text-szron/80">
                     {wartosc}
                   </dd>
                 </div>

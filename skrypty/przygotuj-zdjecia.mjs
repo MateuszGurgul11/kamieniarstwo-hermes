@@ -9,7 +9,7 @@ import sharp from "sharp";
 import { writeFileSync, mkdirSync } from "node:fs";
 
 const WYBOR = [
-  ["IMG-20260817-WA0108.jpg", "nagrobek-jasny-ukos", "Świeżo ustawiony nagrobek pojedynczy z jasnego granitu, płyta polerowana"],
+  ["IMG-20260817-WA0108.jpg", "nagrobek-jasny-ukos", "Świeżo ustawiony nagrobek pojedynczy z lastryka, płyta polerowana"],
   ["IMG-20260817-WA0063.jpg", "ksiega-granit", "Księga wykuta z czarnego granitu, otwarte karty polerowane"],
   ["IMG-20260817-WA0087.jpg", "plyty-profilowane", "Profilowane płyty z jasnego granitu z ciemnym użyleniem, obrobione krawędzie"],
   ["IMG-20260817-WA0085.jpg", "plyta-viscount", "Surowa płyta granitu Viscount White z falistym użyleniem, w warsztacie"],
@@ -22,10 +22,16 @@ const WYBOR = [
   ["IMG-20260817-WA0117.jpg", "nagrobek-rzezbiony", "Nagrobek z czarnego granitu o rzeźbionej, falistej formie"],
   ["IMG-20260817-WA0121.jpg", "nagrobek-czarny-fala", "Czarny nagrobek z wstęgą z czerwonego granitu"],
   ["IMG-20260817-WA0033.jpg", "nagrobek-jasny-wneka", "Nagrobek podwójny z jasnego granitu z wnęką na lampiony"],
-  ["IMG-20260817-WA0043.jpg", "schody-czerwony-granit", "Schody zewnętrzne z czerwonego granitu przy wejściu z kolumnami"],
-  ["IMG-20260817-WA0091.jpg", "podest-granit", "Podest i schody z szarego granitu płomieniowanego przy budynku"],
+  ["IMG-20260817-WA0043.jpg", "schody-czerwony-granit", "Schody zewnętrzne z czerwonego marmuru przy wejściu z kolumnami"],
+  ["IMG-20260817-WA0091.jpg", "podest-granit", "Podest i schody z lastryka przy budynku"],
   ["IMG-20260817-WA0084.jpg", "plyty-na-blaty", "Płyty granitowe przycięte w warsztacie, oznaczone do zamówienia"],
   ["IMG-20260817-WA0061.jpg", "nagrobek-zlozony", "Nagrobek złożony ponownie po pochówku, wyrównany grunt"],
+  ["IMG-20260817-WA0053.jpg", "serce-rzezba", "Serce z czarnego granitu z ręcznie rzeźbioną bruzdą i motywami kwiatowymi"],
+  ["IMG-20260817-WA0054.jpg", "serce-poler", "Serce z czarnego granitu, krawędzie zaokrąglone i wypolerowane ręcznie"],
+  ["IMG-20260817-WA0055.jpg", "zwoj-krawedz", "Płyta z czarnego granitu ze zwiniętą krawędzią jak zwój, poler lustrzany"],
+  ["IMG-20260817-WA0056.jpg", "ksiega-karty", "Księga z czarnego granitu, karty wykute ręcznie w krawędzi bloku"],
+  ["IMG-20260817-WA0057.jpg", "ksiega-grzbiet", "Otwarta księga z czarnego granitu, grzbiet i karty rzeźbione ręcznie"],
+  ["IMG-20260817-WA0058.jpg", "pergamin-zwoje", "Pergamin z czarnego granitu ze zwojami na obu końcach, poler ręczny"],
 ];
 
 mkdirSync("public/foto", { recursive: true });

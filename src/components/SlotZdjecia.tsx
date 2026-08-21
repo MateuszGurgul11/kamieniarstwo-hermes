@@ -55,7 +55,7 @@ export function SlotZdjecia({
             }`}
           >
             <span className="etykieta text-grafit/40">Miejsce na zdjęcie</span>
-            <span className="font-utyl text-base leading-snug text-grafit/55">
+            <span className="font-utyl text-lg leading-snug text-grafit/55">
               {alt}
             </span>
           </div>
@@ -70,7 +70,7 @@ export function SlotZdjecia({
         >
           {podpis && (
             <span
-              className={`font-display text-base ${
+              className={`font-display text-lg ${
                 naPlycie ? "text-szron" : "text-grafit"
               }`}
             >
@@ -79,7 +79,7 @@ export function SlotZdjecia({
           )}
           {detal && (
             <span
-              className={`font-utyl text-base ${
+              className={`font-utyl text-lg ${
                 naPlycie ? "text-szron/55" : "text-grafit/50"
               }`}
             >

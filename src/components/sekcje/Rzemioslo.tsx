@@ -1,4 +1,4 @@
-import { firma, zdjeciaSekcji } from "@/content/site";
+import { firma, zdjeciaSekcji, detaleReczne } from "@/content/site";
 import { SlotZdjecia } from "@/components/SlotZdjecia";
 import { Odslon } from "@/components/Odslon";
 
@@ -53,7 +53,8 @@ export function Rzemioslo() {
                 nie musimy dobierać projektu do tego, co akurat stoi na
                 magazynie. Nagrobek może powstać niemal według każdego
                 pomysłu — również takiego, który ktoś naszkicował na kartce.
-                Księga na zdjęciu obok wyszła spod naszych rąk, nie z katalogu.
+                Serca, zwoje i księgi niżej wyszły spod naszych rąk, nie
+                z katalogu.
               </p>
               <p className="text-szron/90">
                 Pracujemy tak od {firma.miesiacZalozenia}a {firma.rokZalozenia} roku.
@@ -61,6 +62,32 @@ export function Rzemioslo() {
             </div>
           </Odslon>
         </div>
+
+        <Odslon className="mt-16">
+          <p className="etykieta text-mosiadz-jasny">Detal ręczny</p>
+          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-szron/70">
+            Każdy z tych elementów jest cięty, rzeźbiony i polerowany u nas.
+          </p>
+        </Odslon>
+
+        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {detaleReczne.map((detal, indeks) => (
+            <li key={detal.id}>
+              <Odslon opoznienie={(indeks % 3) * 90}>
+                <SlotZdjecia
+                  src={detal.src}
+                  alt={detal.alt}
+                  podpis={detal.podpis}
+                  detal={detal.detal}
+                  blurDataURL={detal.blurDataURL}
+                  naPlycie
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="aspect-[3/4]"
+                />
+              </Odslon>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
